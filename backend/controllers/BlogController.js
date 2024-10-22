@@ -7,14 +7,17 @@ const getBlogs = async (req, res) => {
 
 const postBlogs = async (req, res) => {
   const body = req.body;
-  console.log("body-", body);
-
-  if (!body || !body.title || !body.preview || !body.post) {
-    return res.status(400).json({ message: "All fields are required" });
-  } else {
-    const result = await knex("blogs").insert(body);
-    console.log("Result", result);
-    return res.status(201).json({ message: "Blog created successfully" });
+  try{
+    if (!body || !body.title || !body.preview || !body.post) {
+      return res.status(400).json({ message: "All fields are required" });
+    } else {
+      const result = await knex("blogs").insert(body);
+      return res.status(201).json({ message: "Blog created successfully" });
+    }
+  }
+  catch (error) {
+    console.error("Error creating Blog:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 

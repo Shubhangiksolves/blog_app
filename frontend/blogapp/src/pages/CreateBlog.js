@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Notification from "../components/shared/Notification";
 
 const CreateBlog = () => {
   const [title, setTitle] = useState("");
   const [preview, setPreview] = useState("");
   const [post, setPost] = useState("");
   const [image, setImage] = useState("");
+  const [notification, setNotification] = useState({
+    type: "",
+    message: "",
+  });
+
   const token = localStorage.getItem("token");
+
+  const triggerNotification = (type, message) => {
+    setNotification({ type, message });
+  };
 
   const postBlog = async (e) => {
     e.preventDefault();
@@ -21,7 +31,7 @@ const CreateBlog = () => {
       {
         headers: {
           "Content-Type": "application/json",
-          "token": token
+          token: `Bearer ${token}`,
         },
       }
     );
@@ -29,7 +39,7 @@ const CreateBlog = () => {
     setPreview("");
     setPost("");
     setImage("");
-    alert(res?.data?.message);
+    triggerNotification("success", res?.data?.message);
     return res;
   };
 
@@ -41,9 +51,9 @@ const CreateBlog = () => {
   };
 
   return (
-    <div className="w-100 d-flex align-items-center justify-content-center">
+    <div className="p-3 w-100 d-flex align-items-center justify-content-center">
       <div className="w-75 d-flex flex-column align-items-center justify-content-center">
-        <h1 className="mb-4 underline">Create a Blog</h1>
+        <h1 className="mb-4 underline fw-bold">Create a Blog</h1>
         <form
           method="post"
           action="/blogs"
@@ -112,6 +122,11 @@ const CreateBlog = () => {
             Post Blog
           </button>
         </form>
+        <Notification
+          type={notification.type}
+          message={notification.message}
+          autoClose={700}
+        />
       </div>
     </div>
   );

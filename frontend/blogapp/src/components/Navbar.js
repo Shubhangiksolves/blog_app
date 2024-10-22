@@ -5,19 +5,6 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  // useEffect(() => {
-  //   const checkAuth = async () => {
-  //     try {
-  //       const res = await axios.get("http://localhost:8000/check-auth", { withCredentials: true });
-  //       setIsAuthenticated(true);
-  //     } catch (error) {
-  //       setIsAuthenticated(false);
-  //     }
-  //   };
-  //   checkAuth();
-  // }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -49,20 +36,6 @@ const Navbar = () => {
                     </a>
                   </li>
                 </Link>
-                <Link>
-                  <li class="nav-item">
-                    <a class="nav-link " aria-current="page" href="#">
-                      Features
-                    </a>
-                  </li>
-                </Link>
-                <Link>
-                  <li class="nav-item">
-                    <a class="nav-link " aria-current="page" href="#">
-                      Contact Us
-                    </a>
-                  </li>
-                </Link>
                 <li className="nav-item">
                   <button
                     className="nav-link"
@@ -75,17 +48,19 @@ const Navbar = () => {
               </ul>
             </div>
           ) : (
-            <div className="" id="navbarNavDropdown">
-              <Link to={"/login"}>
-                <li className="nav-item">
-                  <button className="nav-link">Login</button>
-                </li>
-              </Link>
-              <Link to={"/signup"}>
-                <li className="nav-item">
-                  <button className="nav-link">Signup</button>
-                </li>
-              </Link>
+            <div className="d-" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+                <Link to={"/login"}>
+                  <li className="nav-item me-2">
+                    <button className=" btn btn-secondary">Log In</button>
+                  </li>
+                </Link>
+                <Link to={"/signup"}>
+                  <li className="nav-item">
+                    <button className=" btn btn-secondary">Signup</button>
+                  </li>
+                </Link>
+              </ul>
             </div>
           )}
         </div>
