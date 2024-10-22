@@ -6,6 +6,7 @@ const CreateBlog = () => {
   const [preview, setPreview] = useState("");
   const [post, setPost] = useState("");
   const [image, setImage] = useState("");
+  const token = localStorage.getItem("token");
 
   const postBlog = async (e) => {
     e.preventDefault();
@@ -15,11 +16,12 @@ const CreateBlog = () => {
         title,
         preview,
         post,
-        image,
+        // image,
       },
       {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
+          "token": token
         },
       }
     );
@@ -94,7 +96,7 @@ const CreateBlog = () => {
             ></textarea>
             <div class="invalid-feedback">Please Enter Blog.</div>
           </div>
-          <div className="mb-3">
+          {/* <div className="mb-3">
             <label for="blogImage" class="form-label">
               Upload Image
             </label>
@@ -105,7 +107,7 @@ const CreateBlog = () => {
               onChange={onImageChange}
               //   value={image}
             />
-          </div>
+          </div> */}
           <button type="submit" class="btn btn-primary">
             Post Blog
           </button>

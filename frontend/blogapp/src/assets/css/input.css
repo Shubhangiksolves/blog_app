@@ -1,0 +1,44 @@
+/* Variants */
+/* Default Variant */
+.input-variant-default input {
+    border: 1px solid #ccc;
+}
+
+/* Outlined Variant */
+.input-variant-outlined input {
+    border: 2px solid #007BFF;
+    background-color: transparent;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.input-variant-outlined input:focus {
+    outline: none;
+    border-color: #0056b3;
+}
+
+/* Filled Variant */
+.input-variant-filled input {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.input-variant-filled input:focus {
+    outline: none;
+    background-color: #e0e0e0;
+}
+
+/* Underlined Variant */
+.input-variant-underlined input {
+    border: none;
+    border-bottom: 2px solid #ccc;
+    border-radius: 0;
+    padding: 10px;
+}
+
+.input-variant-underlined input:focus {
+    outline: none;
+    border-bottom-color: #007BFF;
+}
