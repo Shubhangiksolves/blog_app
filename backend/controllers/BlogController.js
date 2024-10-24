@@ -1,3 +1,4 @@
+const { CONSTANTS } = require("../constants/constant");
 const knex = require("../db/knex");
 
 const getBlogs = async (req, res) => {
@@ -9,15 +10,15 @@ const postBlogs = async (req, res) => {
   const body = req.body;
   try{
     if (!body || !body.title || !body.preview || !body.post) {
-      return res.status(400).json({ message: "All fields are required" });
+      return res.status(400).json({ message: CONSTANTS.API_MSGS.REQUIRED_FIELDS });
     } else {
-      const result = await knex("blogs").insert(body);
-      return res.status(201).json({ message: "Blog created successfully" });
+      await knex("blogs").insert(body);
+      return res.status(201).json({ message: CONSTANTS.API_MSGS.BLOG_CREATED });
     }
   }
   catch (error) {
-    console.error("Error creating Blog:", error);
-    return res.status(500).json({ message: "Internal server error" });
+    console.error(error);
+    return res.status(500).json({ message: CONSTANTS.API_MSGS.SERVER_ERROR });
   }
 };
 

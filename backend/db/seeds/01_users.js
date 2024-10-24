@@ -10,7 +10,7 @@ exports.seed = async function (knex) {
       name: "Admin User",
       email: "admin@gmail.com",
       password: "admin",
-      role: "Admin",
+      role: "admin",
     },
   ]);
 };

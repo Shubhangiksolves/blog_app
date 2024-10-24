@@ -1,7 +1,8 @@
 const router = require("express");
 const multer = require("multer");
 const controller = require("../controllers/BlogController");
-const authenticate = require("../services/Auth");
+const authenticate = require("../middlewares/Auth");
+const { CONSTANTS } = require("../constants/constant");
 
 const route = router();
 const storage = multer.diskStorage({
@@ -15,8 +16,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 // const upload = multer({ dest: "uploads/" });
 
-route.get("/blogs", controller.getBlogs);
-route.post("/blogs", authenticate, controller.postBlogs);
+route.get(CONSTANTS.API_CONFIG.GET_BLOGS, controller.getBlogs);
+route.post(CONSTANTS.API_CONFIG.POST_BLOG, authenticate, controller.postBlogs);
 // route.get("/blogs/:id", controller.getBlogById);
 // route.put("/blogs/:id", controller.updateBlogById);
 // route.delete("/blogs/:id", controller.deleteBlogById);

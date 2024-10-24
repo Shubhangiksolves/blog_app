@@ -3,6 +3,7 @@ import axios from "axios";
 import { InputField } from "../components/shared/InputField";
 import { Link, useNavigate } from "react-router-dom";
 import Notification from "../components/shared/Notification";
+import { CONSTANTS } from "../constants/Constants";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -25,32 +26,32 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/login", {
+      const response = await axios.post(`http://localhost:8000${CONSTANTS.API_CONFIG.LOGIN}`, {
         email,
         password,
       });
       localStorage.setItem("token", response?.data?.token);
-      triggerNotification("success", response?.data?.message);
+      triggerNotification(CONSTANTS.TOAST_TYPE.SUCCESS, response?.data?.message);
       setTimeout(() => {
         navigate("/");
         window.location.reload();
       }, 1000);
     } catch (error) {
-      console.error("Login error:", error?.response?.data);
-      triggerNotification("error", error?.response?.data?.message);
+      console.error(error?.response?.data);
+      triggerNotification(CONSTANTS.TOAST_TYPE.ERROR, error?.response?.data?.message);
     }
   };
 
   return (
     <div className="d-flex p-2 flex-column align-items-center justify-content-center w-100">
-      <div className="d-flex w-50 flex-column align-items-start gap-3 justify-content-center">
-        <form class="row g-3 w-100" onSubmit={handleLogin}>
+      <div className="d-flex w-50 flex-column align-items-start gap-5 justify-content-center">
+        <form class="row w-100" onSubmit={handleLogin}>
           <div class="col-12">
             <InputField
               type="email"
               name="email"
-              placeholder="Enter email"
-              label="Email"
+              placeholder={CONSTANTS.PLACEHOLDERS.ENTER_EMAIL}
+              label={CONSTANTS.FORM_LABELS.EMAIL}
               onInputChange={(e) => setEmail(e.target.value)}
               value={email}
               required
@@ -60,8 +61,8 @@ const Login = () => {
             <InputField
               type="password"
               name="password"
-              placeholder="Enter password"
-              label="Password"
+              placeholder={CONSTANTS.PLACEHOLDERS.ENTER_PASSWORD}
+              label={CONSTANTS.FORM_LABELS.PASSWORD}
               onInputChange={(e) => setPassword(e.target.value)}
               value={password}
               required
@@ -69,15 +70,15 @@ const Login = () => {
           </div>
           <div class="col-12">
             <button type="submit" class="btn btn-primary">
-              Log In
+              {CONSTANTS.BUTTON.LOGIN}
             </button>
           </div>
         </form>
         <div className="d-flex flex-column gap-2 align-items-start justify-content-center float-left">
-          <h1>Don't have an account, wanna create ??</h1>
+          <h6>{CONSTANTS.TEXT.NO_ACCOUNT}</h6>
           <Link to={"/signup"}>
             {" "}
-            <a className="underline">Create Account</a>
+            <a className="underline">{CONSTANTS.TEXT.CREATE_ACCOUNT}</a>
           </Link>
         </div>{" "}
       </div>

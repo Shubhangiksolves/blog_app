@@ -1,5 +1,4 @@
 import React from "react";
-import "../../assets/css/popup.css";
 
 export const Popup = ({ openPopup, setOpnenPopup, children }) => {
   return (

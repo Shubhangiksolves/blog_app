@@ -4,17 +4,19 @@ import { InputField } from "../components/shared/InputField";
 import { useNavigate } from "react-router-dom";
 import Notification from "../components/shared/Notification";
 import { Popup } from "../components/common/Popup";
+import { CONSTANTS } from "../constants/Constants";
 
 const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState("public");
   const [notification, setNotification] = useState({
     type: "",
     message: "",
   });
   const [showPopup, setShowPopup] = useState(false);
+  const roleOptions = {CHOOSE : 'Choose role', ADMIN : 'Admin', USER : 'User'}
   const navigate = useNavigate();
 
   const triggerNotification = (type, message) => {
@@ -25,7 +27,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:8000/signup",
+        `http://localhost:8000${CONSTANTS.API_CONFIG.SIGNUP}`,
         {
           name,
           email,
@@ -42,12 +44,12 @@ const Signup = () => {
       setEmail("");
       setPassword("");
       setRole("");
-      triggerNotification("success", res.data.message);
+      triggerNotification(CONSTANTS.TOAST_TYPE.SUCCESS, res.data.message);
       setShowPopup(true);
       return res;
     } catch (error) {
-      console.error("Error during sign up:", error.response.data.message);
-      triggerNotification("error", error.response.data.message);
+      console.error(error.response.data.message);
+      triggerNotification(CONSTANTS.TOAST_TYPE.ERROR, error.response.data.message);
     }
   };
 
@@ -58,8 +60,8 @@ const Signup = () => {
           <InputField
             type="text"
             name="username"
-            placeholder="Enter full name"
-            label="Name"
+            placeholder={CONSTANTS.PLACEHOLDERS.ENTER_NAME}
+            label={CONSTANTS.FORM_LABELS.NAME}
             value={name}
             onInputChange={(e) => setName(e.target.value)}
             required
@@ -69,8 +71,8 @@ const Signup = () => {
           <InputField
             type="email"
             name="email"
-            placeholder="Enter email"
-            label="Email"
+            placeholder={CONSTANTS.PLACEHOLDERS.ENTER_EMAIL}
+            label={CONSTANTS.FORM_LABELS.EMAIL}
             onInputChange={(e) => setEmail(e.target.value)}
             value={email}
             required
@@ -80,8 +82,8 @@ const Signup = () => {
           <InputField
             type="password"
             name="password"
-            placeholder="Enter password"
-            label="Password"
+            placeholder={CONSTANTS.PLACEHOLDERS.ENTER_PASSWORD}
+            label={CONSTANTS.FORM_LABELS.PASSWORD}
             onInputChange={(e) => setPassword(e.target.value)}
             value={password}
             required
@@ -89,7 +91,7 @@ const Signup = () => {
         </div>
         <div class="col-12">
           <label for="inputRole" class="form-label">
-            Role
+            {CONSTANTS.FORM_LABELS.ROLE}
           </label>
           <select
             value={role}
@@ -97,14 +99,14 @@ const Signup = () => {
             class="form-select"
             onChange={(e) => setRole(e.target.value)}
           >
-            <option selected>Choose Role</option>
-            <option value={"admin"}>Admin</option>
-            <option value={"public"}>Public User</option>
+            <option selected>{roleOptions.CHOOSE}</option>
+            <option value={"admin"}>{roleOptions.ADMIN}</option>
+            <option value={"public"}>{roleOptions.USER}</option>
           </select>
         </div>
         <div class="col-12">
           <button type="submit" class="btn btn-primary">
-            Sign in
+            {CONSTANTS.BUTTON.SIGNIN}
           </button>
         </div>
       </form>
@@ -116,22 +118,22 @@ const Signup = () => {
       {showPopup && (
         <Popup openPopup={showPopup} setOpnenPopup={setShowPopup}>
           <div className="d-flex flex-column align-items-start justify-content-center p-2 gap-3">
-            <h1 className="fw-bond">Wanna redirect to Login Page ?</h1>
+            <h6 className="fw-bond">{CONSTANTS.TEXT.LOGIN_REDIRECT}</h6>
             <div className="d-flex align-items-start ">
               <button
                 className="btn btn-primary me-3"
                 onClick={() => {
                   setShowPopup(false);
-                  navigate("/login");
+                  navigate(CONSTANTS.ROUTES.SIGNUP);
                 }}
               >
-                Redirect
+                {CONSTANTS.BUTTON.REDIRECT}
               </button>
               <button
                 className="btn btn-secondary"
                 onClick={() => setShowPopup(false)}
               >
-                No, Thanks
+                {CONSTANTS.BUTTON.NO_THANK}
               </button>
             </div>
           </div>

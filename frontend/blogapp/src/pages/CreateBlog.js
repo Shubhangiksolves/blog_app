@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Notification from "../components/shared/Notification";
+import { CONSTANTS } from "../constants/Constants";
 
 const CreateBlog = () => {
   const [title, setTitle] = useState("");
@@ -21,7 +22,7 @@ const CreateBlog = () => {
   const postBlog = async (e) => {
     e.preventDefault();
     const res = await axios.post(
-      "http://localhost:8000/blogs",
+      `http://localhost:8000${CONSTANTS.API_CONFIG.CREATE_BLOG}`,
       {
         title,
         preview,
@@ -39,7 +40,7 @@ const CreateBlog = () => {
     setPreview("");
     setPost("");
     setImage("");
-    triggerNotification("success", res?.data?.message);
+    triggerNotification(CONSTANTS.TOAST_TYPE.SUCCESS, res?.data?.message);
     return res;
   };
 
@@ -53,58 +54,53 @@ const CreateBlog = () => {
   return (
     <div className="p-3 w-100 d-flex align-items-center justify-content-center">
       <div className="w-75 d-flex flex-column align-items-center justify-content-center">
-        <h1 className="mb-4 underline fw-bold">Create a Blog</h1>
+        <h3 className="mb-4 underline fw-bold">{CONSTANTS.HEADINGS.CREATE_BLOG}</h3>
         <form
-          method="post"
-          action="/blogs"
           className="w-75 needs-validation"
           onSubmit={postBlog}
-          enctype="multipart/form-data"
         >
           <div class="mb-3">
             <label for="blogtitle" class="form-label">
-              Title
+             {CONSTANTS.FORM_LABELS.TITLE}
             </label>
             <input
               type="text"
               class="form-control"
               id="blogtitle"
-              placeholder="enter blog title"
+              placeholder={CONSTANTS.PLACEHOLDERS.ENTER_TITLE}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
             />
-            <div class="invalid-feedback">Please Enter Title.</div>
+            <div class="invalid-feedback"></div>
           </div>
           <div class="mb-3">
             <label for="blogpreview" class="form-label">
-              Preview
+            {CONSTANTS.FORM_LABELS.PREVIEW}
             </label>
             <input
               type="text"
               class="form-control"
               id="blogpreview"
-              placeholder="enter blog preview"
+              placeholder={CONSTANTS.PLACEHOLDERS.ENTER_PREVIEW}
               value={preview}
               onChange={(e) => setPreview(e.target.value)}
               required
             />
-            <div class="invalid-feedback">Please Enter Preview.</div>
           </div>
           <div class="mb-3">
             <label for="blogpost" class="form-label">
-              Post
+            {CONSTANTS.FORM_LABELS.POST}
             </label>
             <textarea
               class="form-control"
               id="blogpost"
               rows="10"
-              placeholder="post blog here"
+              placeholder={CONSTANTS.PLACEHOLDERS.ENTER_BLOG}
               value={post}
               onChange={(e) => setPost(e.target.value)}
               required
             ></textarea>
-            <div class="invalid-feedback">Please Enter Blog.</div>
           </div>
           {/* <div className="mb-3">
             <label for="blogImage" class="form-label">
@@ -119,7 +115,7 @@ const CreateBlog = () => {
             />
           </div> */}
           <button type="submit" class="btn btn-primary">
-            Post Blog
+            {CONSTANTS.BUTTON.POST_BLOG}
           </button>
         </form>
         <Notification

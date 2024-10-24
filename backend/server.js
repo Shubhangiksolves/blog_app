@@ -1,4 +1,5 @@
 const express = require("express");
+require('dotenv').config();
 // const mongoose = require("mongoose");
 const cookieParser = require('cookie-parser');
 const cors = require("cors");
@@ -8,7 +9,7 @@ const userRouter = require('./routes/UserRoutes');
 //connect to express
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 3000;
 
 //connect to mongodb
 
