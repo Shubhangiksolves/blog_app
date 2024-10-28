@@ -4,7 +4,9 @@ export const CONSTANTS = {
         GET_BLOG: "/api/blogs",
         LOGIN: "/api/login",
         SIGNUP: "/api/signup",
-        GET_USERS: "/api/users"
+        GET_USERS: "/api/users",
+        SEARCH_USER: "/api/search_user",
+        DELETE_USER: "/api/delete_user"
     },
     TOAST_TYPE : {
         SUCCESS: 'success',
@@ -34,11 +36,14 @@ export const CONSTANTS = {
         POST_BLOG: 'Post Blog',
         CREATE_BLOG: "Create Blog",
         LOGIN: "Log In",
-        SIGNIN: "Sign in",
+        SIGNIN: "Sign Up",
         REDIRECT: "Redirect",
         NO_THANK: "No Thanks",
         LOGOUT: "Logout",
-        ADMIN_DASHBOARD: "Dashboard"
+        ADMIN_DASHBOARD: "Dashboard",
+        EDIT: "Edit",
+        DELETE: "Delete",
+        CANCEL: "Cancel"
     },
     HEADINGS: {
         CREATE_BLOG: "Create a Blog",
@@ -49,6 +54,7 @@ export const CONSTANTS = {
         NO_ACCOUNT: "Don't have an account, wanna create ??",
         CREATE_ACCOUNT: "Create Account",
         LOGIN_REDIRECT: "Wanna redirect to Login Page ?",
+        DEL_USER: "Do you want to delet the user?"
     },
     ROUTES: {
         HOME: "/",

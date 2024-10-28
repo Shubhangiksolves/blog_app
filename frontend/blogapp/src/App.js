@@ -10,7 +10,7 @@ import Dashboard from "./pages/Dashboard.js";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App bg-slate-100">
       <Navbar />
       <Routes>
         <Route path={CONSTANTS.ROUTES.HOME} element={<Home />} />

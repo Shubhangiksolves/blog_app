@@ -33,7 +33,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="d-flex flex-column align-items-center justify-content-center w-100">
+    <div className="d-flex flex-column items-center w-100 min-h-90vh">
       <h3 className="mb-4 mt-2 underline fw-bold">{CONSTANTS.HEADINGS.BLOGS}</h3>
       <Loader loading={isLoading} />
       {blogs.length && !isLoading ? (

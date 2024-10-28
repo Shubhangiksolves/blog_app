@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import {  Bounce, Slide, Zoom, toast, ToastContainer } from "react-toastify";
+import {  Slide, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Notification = ({ type, message, autoClose }) => {

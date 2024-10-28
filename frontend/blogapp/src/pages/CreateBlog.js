@@ -52,7 +52,7 @@ const CreateBlog = () => {
   };
 
   return (
-    <div className="p-3 w-100 d-flex align-items-center justify-content-center">
+    <div className="p-3 w-100 d-flex align-items-center justify-content-center min-h-90vh">
       <div className="w-75 d-flex flex-column align-items-center justify-content-center">
         <h3 className="mb-4 underline fw-bold">{CONSTANTS.HEADINGS.CREATE_BLOG}</h3>
         <form

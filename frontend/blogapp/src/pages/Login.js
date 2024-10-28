@@ -4,6 +4,7 @@ import { InputField } from "../components/shared/InputField";
 import { Link, useNavigate } from "react-router-dom";
 import Notification from "../components/shared/Notification";
 import { CONSTANTS } from "../constants/Constants";
+import { triggerNotification } from "../components/utils/utils";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,14 +16,6 @@ const Login = () => {
   });
   const navigate = useNavigate();
 
-  const triggerNotification = (type, message) => {
-    setNotification({
-      id: new Date().getTime(),
-      type,
-      message,
-    });
-  };
-
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -31,7 +24,7 @@ const Login = () => {
         password,
       });
       localStorage.setItem("token", response?.data?.token);
-      triggerNotification(CONSTANTS.TOAST_TYPE.SUCCESS, response?.data?.message);
+      triggerNotification(CONSTANTS.TOAST_TYPE.SUCCESS, response?.data?.message, setNotification);
       setTimeout(() => {
         navigate("/");
         window.location.reload();
@@ -43,7 +36,8 @@ const Login = () => {
   };
 
   return (
-    <div className="d-flex p-2 flex-column align-items-center justify-content-center w-100">
+    <div className="d-flex p-2 flex-column align-items-center w-100 min-h-90vh gap-5">
+      <h2 className='text-xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight'>Login</h2>
       <div className="d-flex w-50 flex-column align-items-start gap-5 justify-content-center">
         <form class="row w-100" onSubmit={handleLogin}>
           <div class="col-12">

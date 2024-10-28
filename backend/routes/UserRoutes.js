@@ -6,6 +6,8 @@ const route = router();
 
 route.post(CONSTANTS.API_CONFIG.SIGNUP_USER, controller.createUser);
 route.post(CONSTANTS.API_CONFIG.LOGIN_USER, controller.loginUser);
-route.get(CONSTANTS.API_CONFIG.GET_USERS, controller.getAllUsers)
+route.get(CONSTANTS.API_CONFIG.GET_USERS, controller.getAllUsers);
+route.post(CONSTANTS.API_CONFIG.SEARCH_USER, controller.searchUsers);
+route.delete(`${CONSTANTS.API_CONFIG.DELETE_USER}/:id`, controller.deleteUser);
 
 module.exports = route;

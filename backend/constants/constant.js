@@ -9,6 +9,8 @@ module.exports  = {
          INVALID_EMAIL_PASS: "Invalid email or password",
          LOGIN_SUCCESS: "Login successful",
          CANNOT_GET_USERS: "Cannot get users",
+         USER_DELETED: "User Deleted Successfully",
+         NO_USER: "No users found",
     },
     API_CONFIG: {
         GET_BLOGS: '/api/blogs',
@@ -16,6 +18,8 @@ module.exports  = {
         SIGNUP_USER: '/api/signup',
         LOGIN_USER: '/api/login',
         GET_USERS: '/api/users',
+        SEARCH_USER: '/api/search_user',
+        DELETE_USER: '/api/delete_user',
     },
     MIDDLEWARE: {
         UNAUTHORIZED_USER: "Unauthorized User",

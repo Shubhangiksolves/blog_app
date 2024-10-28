@@ -46,9 +46,43 @@ const getAllUsers = async (req, res) => {
     return res.status(500).json({ message: CONSTANTS.API_MSGS.CANNOT_GET_USERS});
   }
 }
+const searchUsers = async (req, res) => {
+  const { query } = req.query;
+  try {
+    const users = await knex("users")
+      .where("name", "like", `%${query}%`)
+      .orWhere("email", "like", `%${query}%`);
+    if (users.length === 0) {
+      return res.status(404).json({ message: CONSTANTS.API_MSGS.NO_USER });
+    }
+    return res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: CONSTANTS.API_MSGS.SERVER_ERROR });
+  }
+};
+
+const deleteUser = async (req, res) => {
+  const userId = req.params.id;
+  console.log("idd--", userId);
+  
+  try {
+    const user = await knex("users").where({ id: userId }).first();
+    if (!user) {
+      return res.status(404).json({ message: CONSTANTS.API_MSGS.NO_USER });
+    }
+    await knex("users").where({ id: userId }).del();
+    return res.status(200).json({ message: CONSTANTS.API_MSGS.USER_DELETED });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: CONSTANTS.API_MSGS.SERVER_ERROR });
+  }
+};
 
 module.exports = {
   createUser,
   loginUser,
   getAllUsers,
+  searchUsers,
+  deleteUser,
 };

@@ -10,7 +10,7 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("public");
+  // const [role, setRole] = useState("public");
   const [notification, setNotification] = useState({
     type: "",
     message: "",
@@ -32,7 +32,7 @@ const Signup = () => {
           name,
           email,
           password,
-          role,
+          // role,
         },
         {
           headers: {
@@ -43,18 +43,19 @@ const Signup = () => {
       setName("");
       setEmail("");
       setPassword("");
-      setRole("");
-      triggerNotification(CONSTANTS.TOAST_TYPE.SUCCESS, res.data.message);
+      // setRole("");
+      triggerNotification(CONSTANTS.TOAST_TYPE.SUCCESS, res?.data?.message);
       setShowPopup(true);
       return res;
     } catch (error) {
       console.error(error.response.data.message);
-      triggerNotification(CONSTANTS.TOAST_TYPE.ERROR, error.response.data.message);
+      triggerNotification(CONSTANTS.TOAST_TYPE.ERROR, error?.response?.data?.message);
     }
   };
 
   return (
-    <div className="d-flex align-items-center justify-content-center w-100">
+    <div className="d-flex align-items-center flex-col w-100 min-h-90vh gap-5 p-2">
+      <h2 className='text-xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight'>Signup</h2>
       <form class="row g-3 w-50" onSubmit={handleSignUp}>
         <div class="col-12">
           <InputField
@@ -89,7 +90,7 @@ const Signup = () => {
             required
           />
         </div>
-        <div class="col-12">
+        {/* <div class="col-12">
           <label for="inputRole" class="form-label">
             {CONSTANTS.FORM_LABELS.ROLE}
           </label>
@@ -103,7 +104,7 @@ const Signup = () => {
             <option value={"admin"}>{roleOptions.ADMIN}</option>
             <option value={"public"}>{roleOptions.USER}</option>
           </select>
-        </div>
+        </div> */}
         <div class="col-12">
           <button type="submit" class="btn btn-primary">
             {CONSTANTS.BUTTON.SIGNIN}
@@ -124,7 +125,7 @@ const Signup = () => {
                 className="btn btn-primary me-3"
                 onClick={() => {
                   setShowPopup(false);
-                  navigate(CONSTANTS.ROUTES.SIGNUP);
+                  navigate(CONSTANTS.ROUTES.LOGIN);
                 }}
               >
                 {CONSTANTS.BUTTON.REDIRECT}
